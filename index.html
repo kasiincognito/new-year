@@ -75,7 +75,7 @@ function update(){
   const m = String(60 - time.getMinutes()).padStart(2, '0');
   const s = String(60 - time.getSeconds()).padStart(2, '0');
 
-  clock.innerHTML = (mon + ' months:<br>' + days + ' day:<br>' + h + ' hours:<br>' + m + ' minutes:<br>' + s + " seconds<br>");
+  clock.innerHTML = (mon + ' months:<br>' + day + ' days:<br>' + h + ' hours:<br>' + m + ' minutes:<br>' + s + " seconds<br>");
 }
 
 update();
