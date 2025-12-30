@@ -1,87 +1,140 @@
 <!DOCTYPE html>
 <html>
-        <meta charset="UTF-8">
+<meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
 <head>
-<title>Christmas to-do list</title>
-<style>
-@font-face{
-  font-family: "Luckymoon";
-  src:url("LuckymoonRegular.ttf") format("truetype");
-}
+  <title>Christmas to-do list</title>
+  <style>
+    @font-face {
+      font-family: "Luckymoon";
+      src: url("LuckymoonRegular.ttf") format("truetype");
+    }
 
-html, body{
-  width:100%;
-  height:100%;
-  overscroll-behavior: none;
-  touch-action: none;
-}
-body{
-  font-family: "Luckymoon";
-  overflow:hidden;
-  display:flex;
-  justify-content: center;
-  align-items:center;
-  background-color: #E6DCB1;
-  margin:0;
-  flex-direction:column;
-}
-#background{
-  position:absolute;
-  opacity:0.1;
-  z-index:1;
-  height:150%;
-}
-h1{
-  position:relative;
-  font-size:70px; /* default font size */
-  color:#BD3634;
-  z-index:3;
-}
-#clock{
-}
+    html, body {
+      width: 100%;
+      height: 100%;
+      overscroll-behavior: none;
+      touch-action: none;
+    }
 
-/* Media queries for responsive font size */
-@media screen and (max-width: 1200px) {
-  h1 {
-    font-size:50px;
-  }
-}
-@media screen and (max-width: 800px) {
-  h1 {
-    font-size:35px;
-  }
-}
-@media screen and (max-width: 500px) {
-  h1 {
-    font-size:65px;
-  }
-}
-</style>
+    body {
+      font-family: "Luckymoon";
+      overflow: hidden;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-color: #E6DCB1;
+      margin: 0;
+      flex-direction: column;
+    }
+
+    #background {
+      position: absolute;
+      opacity: 0.1;
+      z-index: 1;
+      height: 150%;
+    }
+
+    h1 {
+      position: relative;
+      font-size: 70px;
+      /* default font size */
+      color: #BD3634;
+      z-index: 3;
+    }
+    .snow{
+      position: absolute;
+      border-radius: 50%;
+      background-color: white;
+      box-shadow: 0 0 40px white;
+    }
+
+    #clock{}
+
+    /* Media queries for responsive font size */
+    @media screen and (max-width: 1200px) {
+      h1 {
+        font-size: 50px;
+      }
+    }
+
+    @media screen and (max-width: 800px) {
+      h1 {
+        font-size: 35px;
+      }
+    }
+
+    @media screen and (max-width: 500px) {
+      h1 {
+        font-size: 65px;
+      }
+    }
+  </style>
 </head>
 
 <body>
-<h1 id="title">The year ends in:</h1>
-<h1 id="clock"></h1>
-<img src="background.avif" id="background">
+  <h1 id="title">The year ends in:</h1>
+  <h1 id="clock"></h1>
+  <img src="background.avif" id="background">
 </body>
 
 <script>
-// update the date
-function update(){
-  const time = new Date();
+  // update the date
+  function update() {
+    const time = new Date();
 
-  const mon = String(11 - time.getMonth()).padStart(2, '0');
-  const day = String(31 - time.getDate()).padStart(2, '0');
-  const h = String(24 - time.getHours()).padStart(2, '0');
-  const m = String(60 - time.getMinutes()).padStart(2, '0');
-  const s = String(60 - time.getSeconds()).padStart(2, '0');
+    const mon = String(11 - time.getMonth()).padStart(2, '0');
+    const day = String(31 - time.getDate()).padStart(2, '0');
+    const h = String(24 - time.getHours()).padStart(2, '0');
+    const m = String(60 - time.getMinutes()).padStart(2, '0');
+    const s = String(60 - time.getSeconds()).padStart(2, '0');
 
-  clock.innerHTML = (mon + ' months:<br>' + day + ' days:<br>' + h + ' hours:<br>' + m + ' minutes:<br>' + s + " seconds<br>");
-}
+    clock.innerHTML = (mon + ' months:<br>' + day + ' days:<br>' + h + ' hours:<br>' + m + ' minutes:<br>' + s + " seconds<br>");
+  }
 
-update();
-setInterval(update, 1000);
+  var snows = []
+  var num = 100
+
+  class Snow{
+    constructor(){
+      this.sizev = (Math.random() * 10) + 5
+      this.y = Math.random() * window.innerWidth
+      this.x = Math.random() * window.innerHeight
+      this.self = document.createElement("div")
+      this.self.style.left = (this.y + "px")
+      this.self.style.top = (this.x + "px")
+      this.self.setAttribute("class", "snow")
+      this.self.style.height = (this.sizev + "px")
+      this.self.style.width = (this.sizev + "px")
+      document.body.appendChild(this.self)
+    }
+    draw(){
+      this.x += this.sizev / 5
+      this.self.style.top = ((this.x) + "px")
+    }
+  }
+
+  function genSnow(){
+    for(var i = 0; i < num; i++){
+      snows.push(new Snow())
+    }
+  }
+
+  function updateSnow(){
+    for(var i = 0; i < snows.length; i++){
+      if(snows[i].x > window.innerHeight){
+        snows[i].x = -snows[i].sizev
+      }
+      snows[i].draw()
+    }
+  }
+
+  
+  genSnow()
+  setInterval(updateSnow, 70)
+  update();
+  setInterval(update, 1000);
 </script>
+
 </html>
