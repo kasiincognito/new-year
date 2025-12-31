@@ -81,8 +81,19 @@
 </body>
 
 <script>
+  function restart(){
+      setTimeout(function(){
+	clock.style.display = "block"
+      }, 2000)
+  }
+
   // update the date
   function update() {
+      if(mon == "00" && day == "00" && h == "00" && m == "00" && s == "00"){
+	document.getElementById("title").style.innerHtml = "Happy New Year!<br>Welcome in 2026"
+	clock.style.display = "none"
+	restart()
+      }
       time = new Date()
 
       mon = String(11 - time.getMonth()).padStart(2, '0');
