@@ -11,7 +11,8 @@
       src: url("LuckymoonRegular.ttf") format("truetype");
     }
 
-    html, body {
+    html,
+    body {
       width: 100%;
       height: 100%;
       overscroll-behavior: none;
@@ -43,7 +44,8 @@
       color: #BD3634;
       z-index: 3;
     }
-    .snow{
+
+    .snow {
       position: absolute;
       border-radius: 50%;
       background-color: white;
@@ -81,28 +83,34 @@
 <script>
   // update the date
   function update() {
-    const time = new Date();
+      time = new Date()
 
-    const mon = String(11 - time.getMonth()).padStart(2, '0');
-    const day = String(31 - time.getDate()).padStart(2, '0');
-    const h = String(24 - time.getHours()).padStart(2, '0');
-    const m = String(60 - time.getMinutes()).padStart(2, '0');
-    const s = String(60 - time.getSeconds()).padStart(2, '0');
+      mon = String(11 - time.getMonth()).padStart(2, '0');
+      day = String(31 - time.getDate()).padStart(2, '0');
+      h = String(23 - time.getHours()).padStart(2, '0');
+      m = String(60 - time.getMinutes()).padStart(2, '0');
+      s = String(60 - time.getSeconds()).padStart(2, '0');
 
-    clock.innerHTML = (mon + ' months:<br>' + day + ' days:<br>' + h + ' hours:<br>' + m + ' minutes:<br>' + s + " seconds<br>");
+      clock.innerHTML = (mon + ' months:<br>' + day + ' days:<br>' + h + ' hours:<br>' + m + ' minutes:<br>' + s + " seconds<br>");
   }
-
+  var counter = 0
   var snows = []
+  var time = new Date();
   var num = 100
+  var mon;
+  var day;
+  var h;
+  var m;
+  var s;
 
-  class Snow{
-    constructor(){
+  class Snow {
+    constructor() {
       this.sizev = (Math.random() * 15) + 5
       this.y = Math.random() * window.innerWidth
       this.x = Math.random() * window.innerHeight
       this.self = document.createElement("div")
-      if(this.sizev > 14){
-	this.self.style.zIndex = "3"
+      if (this.sizev > 14) {
+        this.self.style.zIndex = "3"
       }
       this.self.style.left = (this.y + "px")
       this.self.style.top = (this.x + "px")
@@ -111,32 +119,32 @@
       this.self.style.width = (this.sizev + "px")
       document.body.appendChild(this.self)
     }
-    draw(){
+    draw() {
       this.x += this.sizev / 5
       this.self.style.top = ((this.x) + "px")
     }
   }
 
-  function genSnow(){
-    for(var i = 0; i < num; i++){
+  function genSnow() {
+    for (var i = 0; i < num; i++) {
       snows.push(new Snow())
     }
   }
 
-  function updateSnow(){
-    for(var i = 0; i < snows.length; i++){
-      if(snows[i].x > window.innerHeight){
+  function updateSnow() {
+    for (var i = 0; i < snows.length; i++) {
+      if (snows[i].x > window.innerHeight) {
         snows[i].x = -snows[i].sizev
       }
       snows[i].draw()
     }
   }
 
-  
+
+  update()
+  setInterval(update, 1000)
   genSnow()
   setInterval(updateSnow, 70)
-  update();
-  setInterval(update, 1000);
 </script>
 
 </html>
