@@ -93,7 +93,7 @@
   }
 
   var snows = []
-  var num = 100
+  var num = 200
 
   class Snow{
     constructor(){
@@ -101,6 +101,9 @@
       this.y = Math.random() * window.innerWidth
       this.x = Math.random() * window.innerHeight
       this.self = document.createElement("div")
+      if(this.sizev > 14){
+	this.self.style.zIndex = "3"
+      }
       this.self.style.left = (this.y + "px")
       this.self.style.top = (this.x + "px")
       this.self.setAttribute("class", "snow")
